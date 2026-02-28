@@ -4,7 +4,7 @@ import type { Room, Player } from '../types/index';
 
 interface AppState {
   currentRoom: Room | null;
-  createRoom: (memberNames: string[]) => Room;
+  createRoom: (name: string, memberNames: string[]) => Room;
   updateScore: (playerId: string, delta: number) => void;
 }
 
@@ -17,9 +17,9 @@ function generateId(): string {
 export function AppProvider({ children }: { children: ReactNode }) {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
 
-  const createRoom = (memberNames: string[]): Room => {
-    const players: Player[] = memberNames.map((name) => ({ id: generateId(), name, score: 0 }));
-    const room: Room = { id: generateId(), players, createdAt: Date.now() };
+  const createRoom = (name: string, memberNames: string[]): Room => {
+    const players: Player[] = memberNames.map((n) => ({ id: generateId(), name: n, score: 0 }));
+    const room: Room = { id: generateId(), name, players, createdAt: Date.now() };
     setCurrentRoom(room);
     return room;
   };

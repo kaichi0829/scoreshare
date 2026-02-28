@@ -6,6 +6,7 @@ export interface Player {
 
 export interface Room {
   id: string;
+  name: string;
   players: Player[];
   createdAt: number;
 }

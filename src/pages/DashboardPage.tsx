@@ -21,7 +21,7 @@ export default function DashboardPage() {
     <div className={styles.page}>
       <div className={styles.header}>
         <button className={styles.backBtn} onClick={() => navigate('/')}>← トップへ</button>
-        <h2>スコアボード</h2>
+        <h2>{currentRoom.name}</h2>
         <div className={styles.spacer} />
       </div>
 
