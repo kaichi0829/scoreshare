@@ -17,9 +17,6 @@ export default function DashboardPage() {
     );
   }
 
-  const sorted = [...currentRoom.players].sort((a, b) => b.score - a.score);
-  const rankLabel = (i: number) => ['🥇', '🥈', '🥉'][i] ?? `${i + 1}位`;
-
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -29,9 +26,8 @@ export default function DashboardPage() {
       </div>
 
       <div className={styles.scoreBoard}>
-        {sorted.map((player, index) => (
-          <div key={player.id} className={`${styles.scoreCard} ${index === 0 ? styles.top : ''}`}>
-            <span className={styles.rank}>{rankLabel(index)}</span>
+        {currentRoom.players.map((player) => (
+          <div key={player.id} className={styles.scoreCard}>
             <span className={styles.playerName}>{player.name}</span>
             <div className={styles.controls}>
               <button className={styles.btnMinus} onClick={() => updateScore(player.id, -1)}>−</button>

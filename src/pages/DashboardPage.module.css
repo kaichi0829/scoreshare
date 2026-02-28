@@ -29,7 +29,6 @@
   width: 60px;
 }
 
-/* Score Board */
 .scoreBoard {
   display: flex;
   flex-direction: column;
@@ -44,17 +43,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.scoreCard.top {
-  background: #fffbeb;
-  border-color: #fbbf24;
-}
-
-.rank {
-  font-size: 1.2rem;
-  min-width: 36px;
-  text-align: center;
 }
 
 .playerName {
@@ -104,7 +92,6 @@
   text-align: center;
 }
 
-/* Not found */
 .notFound {
   text-align: center;
   padding: 48px 16px;
