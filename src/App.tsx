@@ -3,6 +3,7 @@ import { AppProvider } from './store/AppContext';
 import TopPage from './pages/TopPage';
 import NewRoomPage from './pages/NewRoomPage';
 import DashboardPage from './pages/DashboardPage';
+import './global.css';
 
 export default function App() {
   return (
@@ -11,7 +12,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<TopPage />} />
           <Route path="/new" element={<NewRoomPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard/:roomId" element={<DashboardPage />} />
         </Routes>
       </HashRouter>
     </AppProvider>

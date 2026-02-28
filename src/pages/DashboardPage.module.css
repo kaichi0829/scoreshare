@@ -1,0 +1,131 @@
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 4px 0;
+}
+
+.spacer {
+  width: 60px;
+}
+
+/* Score Board */
+.scoreBoard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scoreCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scoreCard.top {
+  background: #fffbeb;
+  border-color: #fbbf24;
+}
+
+.rank {
+  font-size: 1.2rem;
+  min-width: 36px;
+  text-align: center;
+}
+
+.playerName {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnMinus,
+.btnPlus {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+
+.btnMinus:active,
+.btnPlus:active {
+  opacity: 0.7;
+}
+
+.btnMinus {
+  background: #fee2e2;
+  color: var(--danger);
+}
+
+.btnPlus {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.scoreValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  min-width: 52px;
+  text-align: center;
+}
+
+/* Not found */
+.notFound {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.notFound p {
+  margin-bottom: 16px;
+  color: var(--text-sub);
+}
+
+.backToTopBtn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+
+.backToTopBtn:hover {
+  background: var(--primary-hover);
+}
