@@ -9,6 +9,7 @@ interface AppState {
   loading: boolean;
   createRoom: (name: string, memberNames: string[]) => Promise<Room>;
   loadRoom: (roomId: string) => Promise<boolean>;
+  updateRoom: (name: string, memberNames: string[]) => Promise<void>;
   updateScore: (playerId: string, delta: number) => Promise<void>;
 }
 
@@ -22,7 +23,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [currentRoom, setCurrentRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // リアルタイム同期
   useEffect(() => {
     if (!currentRoom?.id) return;
     const unsubscribe = onSnapshot(doc(db, 'rooms', currentRoom.id), (snap) => {
@@ -52,6 +52,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // グループ名・メンバーを更新（スコアは維持）
+  const updateRoom = async (name: string, memberNames: string[]): Promise<void> => {
+    if (!currentRoom) return;
+    // 既存メンバーのスコアを引き継ぎ、新メンバーはスコア0
+    const existingMap = new Map(currentRoom.players.map((p) => [p.name, p]));
+    const players: Player[] = memberNames.map((n) => {
+      const existing = existingMap.get(n);
+      return existing ?? { id: generateId(), name: n, score: 0 };
+    });
+    await updateDoc(doc(db, 'rooms', currentRoom.id), { name, players });
+  };
+
   const updateScore = async (playerId: string, delta: number): Promise<void> => {
     if (!currentRoom) return;
     const updatedPlayers = currentRoom.players.map((p) =>
@@ -61,7 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AppContext.Provider value={{ currentRoom, loading, createRoom, loadRoom, updateScore }}>
+    <AppContext.Provider value={{ currentRoom, loading, createRoom, loadRoom, updateRoom, updateScore }}>
       {children}
     </AppContext.Provider>
   );

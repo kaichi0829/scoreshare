@@ -32,9 +32,10 @@ export default function DashboardPage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <button className={styles.backBtn} onClick={() => navigate('/')}>← トップへ</button>
         <h2>{currentRoom.name}</h2>
-        <div className={styles.spacer} />
+        <button className={styles.editBtn} onClick={() => navigate(`/edit/${currentRoom.id}`)}>
+          編集
+        </button>
       </div>
 
       <div className={styles.scoreBoard}>
