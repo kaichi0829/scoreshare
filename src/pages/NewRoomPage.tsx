@@ -9,17 +9,23 @@ export default function NewRoomPage() {
   const [groupName, setGroupName] = useState('');
   const [members, setMembers] = useState(['', '']);
   const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const update = (i: number, v: string) => {
     const next = [...members]; next[i] = v; setMembers(next);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!groupName.trim()) { setError('グループ名を入力してください'); return; }
     const valid = members.map((m) => m.trim()).filter(Boolean);
     if (valid.length < 2) { setError('メンバーを2人以上入力してください'); return; }
-    const room = createRoom(groupName.trim(), valid);
-    navigate(`/dashboard/${room.id}`);
+    setSaving(true);
+    try {
+      const room = await createRoom(groupName.trim(), valid);
+      navigate(`/dashboard/${room.id}`);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -66,8 +72,8 @@ export default function NewRoomPage() {
 
       {error && <p className={styles.error}>{error}</p>}
 
-      <button className={styles.submitBtn} onClick={handleSubmit}>
-        スタート →
+      <button className={styles.submitBtn} onClick={handleSubmit} disabled={saving}>
+        {saving ? '作成中...' : 'スタート →'}
       </button>
     </div>
   );
