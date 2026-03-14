@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../store/AppContext';
+import Header from '../components/Header';
 import styles from './DashboardPage.module.css';
 
 export default function DashboardPage() {
@@ -15,41 +16,47 @@ export default function DashboardPage() {
   }, [roomId]);
 
   if (loading) {
-    return <div className={styles.notFound}><p>読み込み中...</p></div>;
+    return <><Header /><div className={styles.notFound}><p>読み込み中...</p></div></>;
   }
 
   if (notFound || !currentRoom) {
     return (
-      <div className={styles.notFound}>
-        <p>ルームが見つかりません</p>
-        <button className={styles.backToTopBtn} onClick={() => navigate('/')}>
-          トップへ戻る
-        </button>
-      </div>
+      <>
+        <Header />
+        <div className={styles.notFound}>
+          <p>ルームが見つかりません</p>
+          <button className={styles.backToTopBtn} onClick={() => navigate('/')}>
+            トップへ戻る
+          </button>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-        <h2>{currentRoom.name}</h2>
-        <button className={styles.editBtn} onClick={() => navigate(`/edit/${currentRoom.id}`)}>
-          編集
-        </button>
-      </div>
+    <>
+      <Header />
+      <div className={styles.page}>
+        <div className={styles.header}>
+          <h2>{currentRoom.name}</h2>
+          <button className={styles.editBtn} onClick={() => navigate(`/edit/${currentRoom.id}`)}>
+            編集
+          </button>
+        </div>
 
-      <div className={styles.scoreBoard}>
-        {currentRoom.players.map((player) => (
-          <div key={player.id} className={styles.scoreCard}>
-            <span className={styles.playerName}>{player.name}</span>
-            <div className={styles.controls}>
-              <button className={styles.btnMinus} onClick={() => updateScore(player.id, -1)}>−</button>
-              <span className={styles.scoreValue}>{player.score}</span>
-              <button className={styles.btnPlus} onClick={() => updateScore(player.id, 1)}>＋</button>
+        <div className={styles.scoreBoard}>
+          {currentRoom.players.map((player) => (
+            <div key={player.id} className={styles.scoreCard}>
+              <span className={styles.playerName}>{player.name}</span>
+              <div className={styles.controls}>
+                <button className={styles.btnMinus} onClick={() => updateScore(player.id, -1)}>−</button>
+                <span className={styles.scoreValue}>{player.score}</span>
+                <button className={styles.btnPlus} onClick={() => updateScore(player.id, 1)}>＋</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
